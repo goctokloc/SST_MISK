@@ -91,6 +91,7 @@ function simpleTest()
                      endLocation=[sensorLocation(sensorID,1),sensorLocation(sensorID,2)];
                      clear path path_pts path_coords
                      path = findpath(prmSimple,startLocation,endLocation);
+                     path_done = 1; 
                      path_currentpoint=1;
                      [path_pts, path_coords]=size(path);
                      fprintf('Planowanie drogi do czujnika:  %d\n', sensorID);
@@ -119,6 +120,7 @@ function simpleTest()
                      path_currentpoint=1;
                      [path_pts, path_coords]=size(path);
                      fprintf('Planowanie drogi do bazy \n');
+                     path_done = 1;
                      sensorID=0;
                  end
                  perform_search=0;
@@ -134,7 +136,7 @@ function simpleTest()
                 
                 if path_completed==1
                     fprintf('punkt %d osiągnięty! \n', sensorID);
-                    
+                    path_done = 0;
                      if(sensorID == 1)
                         [returnCode,outInts, outFloats,outStrings, outBuffer]=sim.simxCallScriptFunction(clientID,'Measuring_station2',1,'changeColorRed',[],[],[],[],sim.simx_opmode_blocking);
                      end
@@ -162,7 +164,7 @@ function simpleTest()
                 [om_des,dist]=PurePursuit(r_pose(1),r_pose(2),alfa_abs,path(path_currentpoint,1),path(path_currentpoint,2));
                 end
                 
-                if dist < 0.1
+                if dist < 0.1  && path_done == 1 
                     if path_currentpoint < path_pts
                     path_currentpoint=path_currentpoint+1;
                     else
