@@ -39,6 +39,9 @@ function simpleTest()
         dist=0;
         dist2base=0;
         prmSimple = mobileRobotPRM(map,2000);
+        figure(1)
+        show(map)
+        hold on
         prmSimple.ConnectionDistance = 1;
         perform_search=1;
         path_currentpoint=1;
@@ -75,7 +78,7 @@ function simpleTest()
         handle;
                 
          %for i=1:50
-         while 2 > 1      	
+         while 2 > 1
                 
                 [returnCode, position]=sim.simxGetObjectPosition(clientID,16 , -1, sim.simx_opmode_blocking);
                 [returnCode, orientation]=sim.simxGetObjectOrientation(clientID,16 , -1, sim.simx_opmode_blocking);
@@ -91,7 +94,10 @@ function simpleTest()
                      endLocation=[sensorLocation(sensorID,1),sensorLocation(sensorID,2)];
                      clear path path_pts path_coords
                      path = findpath(prmSimple,startLocation,endLocation);
-                     path_done = 1; 
+                     path_done = 1;
+                     figure(1)
+                     plot(path(:,1),path(:,2),'Color', 'blue','LineStyle','-','Marker','.', 'LineWidth',9)
+                     hold on
                      path_currentpoint=1;
                      [path_pts, path_coords]=size(path);
                      fprintf('Planowanie drogi do czujnika:  %d\n', sensorID);
@@ -178,7 +184,11 @@ function simpleTest()
                 [returnCode]= sim.simxSetJointTargetVelocity(clientID, left_Motor, L_rotvel , sim.simx_opmode_blocking);
                 [returnCode]= sim.simxSetJointTargetVelocity(clientID, right_Motor, R_rotvel , sim.simx_opmode_blocking);
               
-            pause(0.1);
+                pause(0.1);
+                figure(1)                
+                scatter(position(1)+5,position(2)+5, 8,'r', 'filled')
+                hold on
+            
         end
         [returnCode]= sim.simxSetJointTargetVelocity(clientID, left_Motor, 0, sim.simx_opmode_blocking);
         [returnCode]= sim.simxSetJointTargetVelocity(clientID, right_Motor, 0, sim.simx_opmode_blocking);
