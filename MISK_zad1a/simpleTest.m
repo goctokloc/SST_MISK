@@ -67,6 +67,11 @@ function simpleTest()
         %[returnCode]= sim.simxSetJointTargetVelocity(clientID, left_Motor, 1 , sim.simx_opmode_blocking);
         %[returnCode]= sim.simxSetJointTargetVelocity(clientID, right_Motor, 1 , sim.simx_opmode_blocking);
         [returnCode, handle]= sim.simxGetObjectHandle(clientID,'Pioneer_p3dx', sim.simx_opmode_blocking);
+        [returnCode, handle_0]= sim.simxGetObjectHandle(clientID,'Measuring_station0', sim.simx_opmode_blocking);
+        [returnCode, handle_1]= sim.simxGetObjectHandle(clientID,'Measuring_station1', sim.simx_opmode_blocking);
+        [returnCode, handle_2]= sim.simxGetObjectHandle(clientID,'Measuring_station2', sim.simx_opmode_blocking);
+        [returnCode, handle_3]= sim.simxGetObjectHandle(clientID,'Measuring_station3', sim.simx_opmode_blocking);
+        [returnCode, handle_4]= sim.simxGetObjectHandle(clientID,'Measuring_station4', sim.simx_opmode_blocking);
         handle;
                 
          %for i=1:50
@@ -89,6 +94,23 @@ function simpleTest()
                      path_currentpoint=1;
                      [path_pts, path_coords]=size(path);
                      fprintf('Planowanie drogi do czujnika:  %d\n', sensorID);
+                      if(sensorID == 1)
+                        [returnCode,outInts, outFloats,outStrings, outBuffer]=sim.simxCallScriptFunction(clientID,'Measuring_station2',1,'changeColorGreen',[],[],[],[],sim.simx_opmode_blocking);
+                      end
+                       if(sensorID == 2)
+                        [returnCode,outInts, outFloats,outStrings, outBuffer]=sim.simxCallScriptFunction(clientID,'Measuring_station3',1,'changeColorGreen',[],[],[],[],sim.simx_opmode_blocking);
+                      end
+                       if(sensorID == 3)
+                        [returnCode,outInts, outFloats,outStrings, outBuffer]=sim.simxCallScriptFunction(clientID,'Measuring_station0',1,'changeColorGreen',[],[],[],[],sim.simx_opmode_blocking);
+                      end
+                       if(sensorID == 4)
+                        [returnCode,outInts, outFloats,outStrings, outBuffer]=sim.simxCallScriptFunction(clientID,'Measuring_station4',1,'changeColorGreen',[],[],[],[],sim.simx_opmode_blocking);
+                      end
+                       if(sensorID == 5)
+                        [returnCode,outInts, outFloats,outStrings, outBuffer]=sim.simxCallScriptFunction(clientID,'Measuring_station1',1,'changeColorGreen',[],[],[],[],sim.simx_opmode_blocking);
+                      end
+                    
+                     
                  else
                      
                      startLocation=[double(r_pose(1)), double(r_pose(2))];
@@ -112,6 +134,23 @@ function simpleTest()
                 
                 if path_completed==1
                     fprintf('punkt %d osiągnięty! \n', sensorID);
+                    
+                     if(sensorID == 1)
+                        [returnCode,outInts, outFloats,outStrings, outBuffer]=sim.simxCallScriptFunction(clientID,'Measuring_station2',1,'changeColorRed',[],[],[],[],sim.simx_opmode_blocking);
+                     end
+                      if(sensorID == 2)
+                        [returnCode,outInts, outFloats,outStrings, outBuffer]=sim.simxCallScriptFunction(clientID,'Measuring_station3',1,'changeColorRed',[],[],[],[],sim.simx_opmode_blocking);
+                     end
+                      if(sensorID == 3)
+                        [returnCode,outInts, outFloats,outStrings, outBuffer]=sim.simxCallScriptFunction(clientID,'Measuring_station0',1,'changeColorRed',[],[],[],[],sim.simx_opmode_blocking);
+                     end
+                     if(sensorID == 4)
+                        [returnCode,outInts, outFloats,outStrings, outBuffer]=sim.simxCallScriptFunction(clientID,'Measuring_station4',1,'changeColorRed',[],[],[],[],sim.simx_opmode_blocking);
+                     end
+                     if(sensorID == 5)
+                        [returnCode,outInts, outFloats,outStrings, outBuffer]=sim.simxCallScriptFunction(clientID,'Measuring_station1',1,'changeColorRed',[],[],[],[],sim.simx_opmode_blocking);
+                     end
+                    
                     [returnCode]= sim.simxSetJointTargetVelocity(clientID, left_Motor, 0 , sim.simx_opmode_blocking);
                     [returnCode]= sim.simxSetJointTargetVelocity(clientID, right_Motor,0 , sim.simx_opmode_blocking);
                     pause(2)
