@@ -89,10 +89,9 @@ function simpleTest()
                     pause(2)
                     v_des=0;
                     if CalcDist(r_pose,baseLocation') < 0.1
-                        fprintf('punkt bazowy osiągnięty! \n');
                         sensorID=randperm(5,1);
 %                         goal=[sensorLocation(sensorID,1);sensorLocation(sensorID,2)];
-                        goal=[1;9];
+                          goal =[6.5; 2];
                     else
                         fprintf('punkt %d osiągnięty! \n', sensorID);
                        goal=baseLocation';

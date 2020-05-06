@@ -23,6 +23,6 @@ if (phi < 0 && alfa_abs<0)
 angle_error=phi-alfa_abs;
 end
 
-om_des= 0.6*angle_error;
+om_des= 0.5*angle_error;
 
 end
